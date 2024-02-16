@@ -20,6 +20,14 @@ def twist(deck_input, card_input):
     hand = hand + [choice(new_card)]
     return hand
 
+def print_player_cards(player):
+        if len(player)<3:
+            print(f"Player: {player[0]} & {player[1]}")
+        elif len(player) == 3:
+            print(f"Player: {player[0]} & {player[1]} & {player[2]}")
+        elif len(player) == 4:
+            print(f"Player: {player[0]} & {player[1]} & {player[2]} & {player[3]}")
+
 def win_conditon(player, dealer):
     if player == dealer:
         winner = "draw"
@@ -27,10 +35,10 @@ def win_conditon(player, dealer):
     
     elif player > dealer:
         winner = player
-        return winner
+        return "Player wins"
     
     elif player < dealer:
-        winner = dealer
+        winner = "Dealer wins"
         return winner
      
    
