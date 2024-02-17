@@ -1,5 +1,5 @@
 from random import choice
-from game_logic import add_cards, twist, win_conditon, print_player_cards
+from game_logic import add_cards, twist, win_conditon, print_player_cards, print_dealer_cards
 
 cards = {"Ace":11, "Two":2,"Three":3, "Four":4, "Five":5, "Six":6, "Seven":7, "Eight":8, "Nine":9, "Ten":10, "Jack":10, "Queen":10, "King":10}
 
@@ -18,9 +18,11 @@ while not game_over:
         break
 
     bust = False
-    bet = input("Place your bets please ")
-    player_pot -= bet
-    print("£" + bet)
+    print("Place your bets please:")
+    bet = input("£")
+    player_pot = player_pot - int(bet)
+    print("\
+            ")    
 
     #dealer deals
     players_cards_list = list(cards.keys())
@@ -31,12 +33,12 @@ while not game_over:
 
     #Show Cards
     print("Dealer deals the cards")
+    print("\
+            ")    
+    
     print_player_cards(players_cards)
-    print( f"Dealer: {dealers_cards[0]}")
-
+    print_dealer_cards(dealers_cards)
     players_total = add_cards(players_cards, cards)
-
-    print(players_total)
 
     #players turn
     while players_total < 17:
@@ -47,53 +49,62 @@ while not game_over:
 
     if players_total > 21:
         print("Player bust!")
-        print_player_cards(players_cards)
-        break
+        bust = True
 
     while not bust:
         response = input("Stick or Twist? ")
+        print("\
+              ")
 
         if response.lower() == "twist":
             print("Player twists")
+            print("\
+                ")            
             players_cards = twist(players_cards, cards)
             players_total = add_cards(players_cards, cards)
             print_player_cards(players_cards)
 
             if players_total > 21:
                 print(f"{players_total}, player loses")
-                print_player_cards(players_cards)
-
                 bust = True
                 break
             elif players_total == 21:
                 print("21!")
                 break
+
         elif response.lower() == "stick":
             print("Player sticks")
+            print("\
+                ")            
             break
         else:
             print("Wrong answer, try again")
+            print("\
+                ")            
 
     #dealers turn
     
     if not bust:
         print("Dealers turn")
-        print(f"Dealer: {dealers_cards[0]}, {dealers_cards[1]}")
+        print("\
+              ")
         dealers_total = add_cards(dealers_cards, cards)
+        print_dealer_cards(dealers_cards)
                 
         while dealers_total < 17:
             dealers_cards = twist(dealers_cards, cards)
             dealers_total = add_cards(dealers_cards, cards)
-            print( f"Dealer: {dealers_cards[0]}, {dealers_cards[1]}, {dealers_cards[2]}")
+            print_dealer_cards(dealers_cards)
+            print("\
+                ")            
 
-            if dealers_total > 21:
-                bust = True
-                break
-            else:
-                print("Dealer sticks")
-                print(dealers_cards)
-                break
-
-        #check winners
+        if dealers_total > 21:
+            bust = True
+        else:
+            print("Dealer sticks")
+            print("\
+                ")
+    #check winners
+    if not bust:
         winner = win_conditon(players_total, dealers_total)
         print(winner)
