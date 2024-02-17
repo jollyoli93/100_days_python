@@ -6,14 +6,6 @@ def add_cards(card_list, cards):
         total += cards[card]
     return total
 
-def dealer_view(player, dealer):
-    for i, card in enumerate(player):
-        print(f"player has {card}")
-    player_total = add_cards(player)
-
-    for i, card in enumerate(player):
-        print(f"Dealer has {dealer[i+1]}")
-
 def twist(deck_input, card_input):
     hand = deck_input
     new_card = list(card_input.keys())
@@ -29,12 +21,12 @@ def print_player_cards(player):
             print(f"Player: {player[0]} | {player[1]} | {player[2]} | {player[3]}")
 
 def print_dealer_cards(dealer):
-        if len(dealer)<3:
-            print(f"Dealer: {dealer[0]} | {dealer[1]}")
+        if len(dealer)<2:
+            print(f"Dealer: {dealer[0]}")
         elif len(dealer) == 3:
-            print(f"Dealer: {dealer[0]} | {dealer[1]} | {dealer[2]}")
+            print(f"Dealer: {dealer[0]} | {dealer[1]}")
         elif len(dealer) == 4:
-            print(f"Dealer: {dealer[0]} | {dealer[1]} | {dealer[2]} | {dealer[3]}")
+            print(f"Dealer: {dealer[0]} | {dealer[1]} | {dealer[2]}")
 
 
 def win_conditon(player, dealer):
@@ -51,4 +43,8 @@ def win_conditon(player, dealer):
         winner = "Dealer wins"
         return winner
      
-   
+def check_ace(card_total, cards):
+    if card_total > 21:
+        return int(1)
+    else:
+        return int(11)
