@@ -1,5 +1,5 @@
 from random import choice
-from game_logic import add_cards, twist, win_conditon, print_player_cards, print_dealer_cards, check_ace
+from game_logic import add_cards, twist, win_conditon, print_player_cards, print_dealer_cards
 
 def play_game():
     cards = {"Ace":11, "Two":2,"Three":3, "Four":4, "Five":5, "Six":6, "Seven":7, "Eight":8, "Nine":9, "Ten":10, "Jack":10, "Queen":10, "King":10}
@@ -31,12 +31,12 @@ def play_game():
 
         print("\
                 ")    
-
+        #DEBUG
         #dealer deals
         cards_list = list(cards.keys())
-        players_cards = [choice(cards_list), choice(cards_list)]
+        players_cards = ['Ace', choice(cards_list)]
 
-        dealers_cards = [choice(cards_list)]
+        dealers_cards = ['Ace']
 
         #Show Cards
         print("Dealer deals the cards")
@@ -52,18 +52,15 @@ def play_game():
             print(input("Player must twist, press to continue"))
             players_cards = twist(players_cards, cards)
             players_total = add_cards(players_cards, cards)            
-            #check Ace
-            for card in players_cards:
-                if card == 'A':
-                    players_cards['Ace'] = check_ace(players_total, players_cards)
-                    print('Ace is 1')
-
-
             print_player_cards(players_cards)
 
         if players_total > 21:
-            print("Player bust!")
-            bust = True
+            if 'Ace' in players_cards:
+                print("Ace is 1")
+                cards["Ace"] == 1
+            else:
+                print("Player bust!")
+                bust = True
 
         while not bust:
             response = input("Stick or Twist? ")
@@ -79,9 +76,14 @@ def play_game():
                 print_player_cards(players_cards)
 
                 if players_total > 21:
-                    print(f"{players_total}, player loses")
-                    bust = True
-                    break
+                    if 'Ace' in players_cards:
+                        print("Ace is 1")
+                        cards["Ace"] == 1
+                        continue
+                    else:
+                        print(f"{players_total}, player loses")
+                        bust = True
+                        break
                 elif players_total == 21:
                     print("21!")
                     break
@@ -99,6 +101,8 @@ def play_game():
         #dealers turn
         
         if not bust:
+            cards["Ace"] == 11
+
             print("Dealers turn")
             print("\
                 ")
@@ -113,9 +117,15 @@ def play_game():
                     ")            
 
             if dealers_total > 21:
-                bust = True
+                if 'Ace' in dealers_cards:
+                    cards["Ace"] == 1
+                    dealers_cards = twist(dealers_cards, cards)
+                else:
+                    print("Player bust!")
+                    bust = True
             else:
                 print("Dealer sticks")
+                print_dealer_cards(dealers_cards)
                 print("\
                     ")
         #check winners
