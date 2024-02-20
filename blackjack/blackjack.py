@@ -34,9 +34,9 @@ def play_game():
         #DEBUG
         #dealer deals
         cards_list = list(cards.keys())
-        players_cards = ['Ace', choice(cards_list)]
+        players_cards = [choice(cards_list), choice(cards_list)]
 
-        dealers_cards = ['Ace']
+        dealers_cards = [choice(cards_list)]
 
         #Show Cards
         print("Dealer deals the cards")

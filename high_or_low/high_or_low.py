@@ -16,7 +16,6 @@ def compare(cat1, cat2):
   elif first_follower < second_follower:
     return 2
 
-
 def print_func(person):
   print(person['name'], person['description'], person['country'])
 
@@ -24,8 +23,9 @@ def welcome():
   print(logo)
   print(vs)
 
+welcome()
+
 def high_or_low(num1, num2):
-  welcome()
   game_over = False
   new_person = randint(0, len(data) - 1)
 
@@ -34,19 +34,24 @@ def high_or_low(num1, num2):
     second_person = data[num2]
 
     if first_person['name'] == second_person['name']:
-      second_person = new_person
+      second_person = data[new_person]
 
     print_func(first_person)
     print(f"{first_person['follower_count']} million")
+    print("\n")
+
+    print('Or')
+    print("\n")
+
     print_func(second_person)
     print("\n")
+
     #get player input
     question = input('Higher or Lower? press 1 or 2: ')
     player_input = int(question)
 
     highest = compare(first_person, second_person)
 
-    #if True make [0] == [1] person and generate new number for [1]
     if player_input == highest:
       print("Player wins, next question")
       print("\n")
@@ -55,6 +60,9 @@ def high_or_low(num1, num2):
       game_over = True
       print(second_person['follower_count'])
       print("Player loses")
+      print("\n")  
+      print("|")
+      print("\n")  
       high_or_low(new_person, new_person)
 
 

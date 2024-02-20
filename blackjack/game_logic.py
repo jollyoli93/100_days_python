@@ -43,8 +43,11 @@ def win_conditon(player, dealer):
         winner = "Dealer wins"
         return winner
      
-def check_ace(card_total, cards):
-    if card_total > 21:
-        return int(1)
-    else:
-        return int(11)
+# def check_ace(card_total):
+#     if card_total > 21:
+#         if 'Ace' in card_cards:
+#             print("Ace is 1")
+#             return cards["Ace"] == 1
+#         else:
+#             print("Player bust!")
+#             return bust = True
